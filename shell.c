@@ -15,6 +15,8 @@ extern char input[1000],inp[100][1000],comand[100][1000],adir[1000],ndir[1000],o
 extern char pidint[100];
 char hist[22][1000];
 int histindx=0,totk=0;
+extern int pidlist[10000][2],pidpt;
+extern char pidls[1000][200];
 
 void printline();
 void echo();
@@ -29,17 +31,19 @@ void strrevpid();
 void bakisab(int comc);
 void back(int comc);
 void history(int comc);
+void pidover();
 
 int main()
 {
+    pidpt=0;
     getcwd(adir,1000);
     getcwd(odir,1000);
     uname(&buffer);
     while(1)
     {
+        pidover();
         printline();
         scanf("%[^\n]s",input);
-        strcpy(faltu,input);
         char* tok;
         const char del[4]=";";
         tok = strtok(input,del);
@@ -57,9 +61,10 @@ int main()
             int  status;
             const char sp[4]=" ";
             strcpy(hist[histindx],inp[i]);
+            strcpy(faltu,inp[i]);
             histindx++;
             histindx%=20;
-            totk=0;
+            totk++;
             bre = strtok(inp[i],sp);
             int comc=0;
             while(bre != 0)
@@ -119,11 +124,39 @@ int main()
 
 void history(int comc)
 {
-    if(comc==1)
+    int n=10;
+    if(comc==2)
     {
-        for(int i=histindx;i>histindx+10;i++)
+      //printf("ikda\n" );
+      n=(int)comand[1][0]-48;
+    }
+    //printf("n=%d\n",n);
+        for(int i=histindx-1;i>=histindx-n;i--)
         {
-          printf("%s\n",hist[i%20]);
+      //    printf("i=%d\n",i );
+          if(i>=0)
+          {
+            printf("%s\n",hist[i%20]);
+          }
+          else if(totk>10)
+          {
+            printf("%s\n",hist[-(i%20)] );
+          }
         }
+
+}
+
+void pidover()
+{
+    for(int i=0;i<pidpt;i++)
+    {
+      if(pidlist[i][0]==0)
+      {
+        if(kill(pidlist[i][1],0)!=0)
+        {
+          printf("%s with pid %d exited \n",pidls[i],pidlist[i][1] );
+          pidlist[i][0]=1;
+        }
+      }
     }
 }

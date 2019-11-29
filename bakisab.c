@@ -13,6 +13,8 @@
 extern struct utsname buffer;//for user name
 extern char input[1000],inp[100][1000],comand[100][1000],adir[1000],ndir[1000],odir[1000],list[500][1000],faltu[1000];
 extern char pidint[100];
+int pidlist[1000][2],pidpt;
+char pidls[1000][200];
 
 void printline();
 void echo();
@@ -29,7 +31,8 @@ void back(int comc);
 void sig_handler(int signum)
 {
   int pid = waitpid(-1, NULL, WNOHANG);
-  if(pid > 0){
+  if(pid > 0)
+  {
     int lulu=0;
   }
 }
@@ -81,6 +84,9 @@ extern void back(int comc)
     }
     else
     {
+          pidlist[pidpt][1]=cid;
+          strcpy(pidls[pidpt],faltu);
+          pidpt++;
           printf("pid=%d\n",cid );
           signal(SIGCHLD, sig_handler);
     }
