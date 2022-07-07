@@ -165,8 +165,8 @@ The "Pseudo Home" directory for the shell will be the directory in which the exe
 
 * ls.c:
   * The flags -a, -l, -la, -al can be used. Complete or absolute path of a directory can also be provided to list the contents of that directory.
-  * ls() : driver function to choose amongst the above functions.
-  * printinfo() : Helper function for for extracting and printing extra details.
+  * ls(): driver function to choose amongst the above functions.
+  * printinfo(): Helper function for for extracting and printing extra details.
 
 * cd.c:
   
@@ -174,8 +174,12 @@ The "Pseudo Home" directory for the shell will be the directory in which the exe
   * rd (): Parse and break input path into the most direct and simple golbal Path.
   * checkdir(): Check if path is a valid path or not.
 
-* pinfo.c():
+* pinfo.c:
 
-  *pinfo(): Provides details about currently active/running processes. A particular process ID can also be provided as an argument to obtain its details.
-  *strrevpid(): Updats the pid of process.
+  * pinfo(): Provides details about currently active/running processes. A particular process ID can also be provided as an argument to obtain its details.
+  * strrevpid(): Updats the pid of process.
+
+* bakisab.c:
+  * sig_handler(): Handels intrupts as CTRL-C and CTRL-Z
+  * bakisab(): Handles background and foreground process.
 
